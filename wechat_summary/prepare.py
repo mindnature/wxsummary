@@ -99,7 +99,7 @@ def _writing_guide(window: Window, multi: bool, me_configured: bool, chunked: bo
             for name, spec in schema_for_period(window.period).items()
             if spec["max"] > 0
         },
-        "next_command": "python wechat_summary.py validate --run <本轮目录>",
+        "next_command": "python wxsummary.py validate --run <本轮目录>",
         "safety": SAFETY_NOTICE,
     }
 
@@ -282,7 +282,7 @@ def prepare(
     root = Path(out_root or config["output"]["root"]).expanduser().resolve()
 
     with open_source(config, **source_overrides) as source:
-        all_chats = source.list_chats(include_private=True)
+        all_chats = source.list_chats(include_private=False)
         selected, set_label = resolve_chats(all_chats, names=chats, group_set=group_set, group_sets=config.get("group_sets") or {})
         per_chat: dict[str, list[Message]] = {c.id: source.messages(c, window.since, window.until) for c in selected}
         latest = source.latest_time()

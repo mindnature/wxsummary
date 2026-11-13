@@ -26,3 +26,7 @@ key_windows.txt
 .env*
 decrypted/
 wechat-decrypt/
+
+key_windows.*
+*.bak
+.wxsummary/

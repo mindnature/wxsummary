@@ -27,3 +27,24 @@ jobs:
           python wxsummary.py groups --source-dir ./demo-mirror --json
           python wxsummary.py quick --source-dir ./demo-mirror --chats "独立开发者交流群" --date 2026-10-19 --out-root ./ci-out --json
           find ./ci-out -name report.md | grep -q report.md
+
+  windows-smoke:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Unit tests
+        run: python -m unittest discover -s tests -v
+      - name: Windows CLI smoke test
+        shell: pwsh
+        run: |
+          python wxsummary.py --version
+          python wxsummary.py setup --status --json
+          python wxsummary.py demo --out .\demo-mirror
+          python wxsummary.py groups --source-dir .\demo-mirror --json
+          python wxsummary.py quick --source-dir .\demo-mirror --chats "独立开发者交流群" --date 2026-10-19 --out-root .\ci-out --json
+          if (-not (Get-ChildItem .\ci-out -Recurse -Filter report.md)) { exit 1 }

@@ -1,13 +1,18 @@
-# 将本文件复制为 ~/.wechat-report/config.yaml；只填写本人允许处理的数据路径。
+# wxsummary V1.1，本机授权数据接入示例
 timezone: Asia/Shanghai
 week_start: monday
 source:
   type: decrypted_dir
-  path: ""  # 明文 SQLite 镜像目录；也可以命令行提供 --source-dir
+  path: ""
   account: ""
+  paths: {}
+refresh:
+  command: []
+  cwd: ""
+  timeout_seconds: 1800
 me:
   ids: []
-  names: []   # 可填本人在微信群中的昵称，例如 ["我的昵称"]
+  names: []
 group_sets: {}
 output:
   root: "~/Documents/wxsummary"

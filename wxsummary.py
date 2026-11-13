@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
-"""wxsummary: safe, on-demand group digest CLI.
+"""wxsummary V1.1: user-authorized local WeChat connection, refresh and group reports.
 
-No automated WeChat key extraction, hook, message sending or scheduled jobs.
-Reads user-supplied plaintext SQLite mirrors or normalized JSON exports only.
+Never silently extracts keys, closes WeChat, sends messages or schedules jobs.
 """
 from __future__ import annotations
 
@@ -21,7 +20,7 @@ from wechat_summary.semantic import validate_run
 from wechat_summary.sources import open_source
 from wechat_summary.themes import list_themes
 
-VERSION = "1.0.0"
+VERSION = "1.1.0"
 
 
 def _source_args(parser: argparse.ArgumentParser) -> None:
@@ -32,7 +31,7 @@ def _source_args(parser: argparse.ArgumentParser) -> None:
 
 
 def _common(parser: argparse.ArgumentParser) -> None:
-    parser.add_argument("--config", help="配置路径，默认 ~/.wechat-report/config.yaml")
+    parser.add_argument("--config", help="配置路径，默认 ~/.wxsummary/config.yaml")
     parser.add_argument("--json", action="store_true", help="机器可读 JSON 输出")
 
 
@@ -44,7 +43,7 @@ def _selection(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--since", help="自定义时间窗起点（包含）")
     parser.add_argument("--until", help="自定义时间窗终点（不包含）")
     parser.add_argument("--mode", choices=["merged", "separate"], default="merged")
-    parser.add_argument("--out-root", help="报告输出根目录，默认 ~/Documents/wechat-summary")
+    parser.add_argument("--out-root", help="报告输出根目录，默认 ~/Documents/wxsummary")
 
 
 def _source_override(args: argparse.Namespace) -> dict:
@@ -66,7 +65,7 @@ def _chosen_date(args: argparse.Namespace, config: dict) -> str | None:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description="wxsummary：只读微信群聊数据，按需生成带原话证据的群报。",
-        epilog="不会自动解密微信、发送消息或注册定时任务。")
+        epilog="第三方工具与取钥需要分别授权；不发消息或定时执行。")
     parser.add_argument("--version", action="version", version=f"wxsummary {VERSION}")
     sub = parser.add_subparsers(dest="command", required=True)
 
@@ -74,6 +73,24 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--out", default="./demo-mirror")
     p.add_argument("--start", default="2026-10-19")
     p.add_argument("--json", action="store_true")
+
+    p = sub.add_parser("setup", help="首次接入向导（只读状态或经授权安装外部工具）")
+    _common(p)
+    p.add_argument("--status", action="store_true", help="只检查接入状态，不修改任何文件")
+    p.add_argument("--use-mirror", help="配置已有授权的明文 SQLite 镜像")
+    p.add_argument("--wechat-data", help="指定微信加密数据目录（只用于定位）")
+    p.add_argument("--account", help="明文镜像中的账号目录")
+    p.add_argument("--tool-dir", help="外部工具的安装目录")
+    p.add_argument("--install-tool", action="store_true", help="安装独立第三方解密工具")
+    p.add_argument("--trust-third-party-code", dest="trust_tool", action="store_true",
+                   help="明确同意下载并执行外部源码")
+    p.add_argument("--extract-key", action="store_true", help="用户授权后执行首次取钥")
+    p.add_argument("--consent-restart-wechat", dest="consent_restart", action="store_true",
+                   help="明确同意关闭微信并由用户重新打开")
+    p.add_argument("--key-wait", type=int, default=120, help="等待重新打开微信的时间（30-300秒）")
+
+    p = sub.add_parser("refresh", help="按需调用本机已授权外部工具，刷新明文数据库")
+    _common(p)
 
     p = sub.add_parser("groups", help="列出可读取的群及群 ID")
     _common(p)
@@ -93,6 +110,7 @@ def build_parser() -> argparse.ArgumentParser:
         _common(p)
         _source_args(p)
         _selection(p)
+        p.add_argument("--refresh", action="store_true", help="先刷新本机明文镜像，再选群准备群报")
         if command == "quick":
             p.add_argument("--theme", default="newspaper", help="主题：newspaper/ink 等")
             p.add_argument("--format", default="md,html", help="输出格式：md,html,png")
@@ -126,6 +144,12 @@ def _run(args: argparse.Namespace) -> tuple[dict, int]:
     command = args.command
     if command == "themes":
         return {"ok": True, "themes": [{k: v for k, v in t.items() if k != "dir"} for t in list_themes()]}, 0
+    if command == "setup":
+        from wechat_summary.setup import run_setup
+        return run_setup(cfg, args)
+    if command == "refresh":
+        from wechat_summary.sources.refresh import run_refresh
+        return run_refresh(cfg), 0
     if command == "doctor":
         with open_source(cfg, **_source_override(args)) as src:
             return {"ok": True, "source": src.doctor()}, 0
@@ -142,17 +166,25 @@ def _run(args: argparse.Namespace) -> tuple[dict, int]:
         chats = _csv(args.chats)
         if not chats and not args.group_set:
             raise WSError("chats_required", "请用 --chats 指定至少一个群，或用 --group-set 指定群集合")
+        refreshed = None
+        if args.refresh:
+            if args.source_json or (not args.source_dir and (cfg.get("source") or {}).get("type") == "json"):
+                raise WSError("refresh_not_configured", "JSON 离线导入不能执行微信数据库刷新")
+            from wechat_summary.sources.refresh import run_refresh
+            refreshed = run_refresh(cfg)
         result = prepare(
             cfg, chats=chats, group_set=args.group_set,
             period=args.period, date=_chosen_date(args, cfg),
             since=args.since, until=args.until, mode=args.mode,
             out_root=args.out_root, now=None,
             source_overrides=_source_override(args))
+        if refreshed is not None:
+            result["refresh"] = refreshed
         if command == "prepare":
             return result, 0
         status, code = render_run(cfg, result["run_dir"], themes=_csv([args.theme]),
                                   formats=_csv([args.format]), stats_only=True)
-        return {"ok": code == 0, "run_dir": result["run_dir"],
+        return {"ok": code == 0, "run_dir": result["run_dir"], "refresh": refreshed,
                 "reports": result["reports"], "render": status,
                 "note": "统计版不包含 AI 语义分析；完整群报请用 Agent Skill。"}, code
     if command == "validate":

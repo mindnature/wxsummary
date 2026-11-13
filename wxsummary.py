@@ -196,6 +196,14 @@ def _run(args: argparse.Namespace) -> tuple[dict, int]:
 
 
 def main(argv: list[str] | None = None) -> int:
+    # Windows PowerShell/GitHub Actions may expose cp1252/GBK streams.
+    # CLI JSON and report paths include Chinese, so request UTF-8 explicitly.
+    if sys.platform == "win32":
+        for stream in (sys.stdout, sys.stderr):
+            try:
+                stream.reconfigure(encoding="utf-8", errors="replace")
+            except (AttributeError, OSError, ValueError):
+                pass
     parser = build_parser()
     args = parser.parse_args(argv)
     try:

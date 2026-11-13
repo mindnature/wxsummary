@@ -44,6 +44,7 @@ jobs:
         run: |
           python wxsummary.py --version
           python wxsummary.py setup --status --json
+          if ($LASTEXITCODE -notin @(0,2)) { exit 1 }
           python wxsummary.py demo --out .\demo-mirror
           python wxsummary.py groups --source-dir .\demo-mirror --json
           python wxsummary.py quick --source-dir .\demo-mirror --chats "独立开发者交流群" --date 2026-10-19 --out-root .\ci-out --json

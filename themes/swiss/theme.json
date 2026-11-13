@@ -1,0 +1,10 @@
+{
+  "name": "swiss",
+  "label": "瑞士网格",
+  "description": "纯白底、黑红蓝黄四色满宽色带作章节头，超大编号，正文左侧同色粗竖线",
+  "order": 5,
+  "chart_style": "clean",
+  "numerals": "arabic",
+  "palette": {"bar": "#e30613", "bar_alt": "#111111", "axis": "#555555", "text": "#111111", "grid": "#dddddd"},
+  "vars": {"brand": "WECHAT DIGEST / INTERNATIONAL STYLE", "toc": "CONTENTS", "note": "NOTE"}
+}

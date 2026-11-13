@@ -1,0 +1,21 @@
+{
+  "name": "ink",
+  "label": "水墨国风",
+  "description": "宣纸底、楷体标题、居中印章编号（壹贰叁）配两侧墨线，印章颜色按章节轮换",
+  "order": 8,
+  "chart_style": "clean",
+  "numerals": "cn",
+  "palette": {"bar": "#b0302a", "bar_alt": "#8a7c66", "axis": "#6b5f50", "text": "#2a2520", "grid": "#d3c5a5"},
+  "vars": {"brand": "群 聊 札 记", "toc": "目 录", "note": "编者按"},
+  "sections": {
+    "overview": {"en": "观其大略"},
+    "topics": {"en": "纪其要事"},
+    "insights": {"en": "辨其异同"},
+    "follow_ups": {"en": "记其后事"},
+    "for_me": {"en": "与君相关"},
+    "daily": {"en": "按日而书"},
+    "groups": {"en": "诸群并览"},
+    "activity": {"en": "人声时序"},
+    "links": {"en": "可资延读"}
+  }
+}

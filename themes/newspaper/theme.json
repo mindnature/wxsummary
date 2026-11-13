@@ -1,0 +1,21 @@
+{
+  "name": "newspaper",
+  "label": "报纸头版",
+  "description": "新闻纸底色、报头双线、每章一个版面：黑底反白与粗线版头交替，首字下沉",
+  "order": 3,
+  "chart_style": "clean",
+  "numerals": "alpha",
+  "palette": {"bar": "#1b1a17", "bar_alt": "#a9a294", "axis": "#4a463d", "text": "#1b1a17", "grid": "#d6cfbf"},
+  "vars": {"brand": "THE WECHAT TIMES", "toc": "本 期 导 读", "note": "编者按"},
+  "sections": {
+    "overview": {"title": "本期数据", "en": "By the Numbers"},
+    "topics": {"title": "要闻", "en": "Front Page"},
+    "insights": {"title": "评论", "en": "Opinion"},
+    "follow_ups": {"title": "备忘", "en": "Notices"},
+    "for_me": {"title": "致读者", "en": "For the Reader"},
+    "daily": {"title": "逐日纪要", "en": "Calendar"},
+    "groups": {"title": "分版概览", "en": "Sections"},
+    "activity": {"title": "发言统计", "en": "Statistics"},
+    "links": {"title": "重要链接", "en": "Key Links"}
+  }
+}

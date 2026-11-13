@@ -1,0 +1,88 @@
+/* 瑞士网格：纯白底 + 黑红蓝黄四色；每章一块满宽色带，居中超大编号与标题，正文左侧同色粗竖线。 */
+body{background:#fff;color:#111;font-family:"Helvetica Neue",Helvetica,Arial,"Microsoft YaHei","PingFang SC",sans-serif}
+.sec-overview,.toc-overview{--a:#111;--k:#fff;--w:#111}
+.sec-topics,.toc-topics{--a:#e30613;--k:#fff;--w:#e30613}
+.sec-insights,.toc-insights{--a:#0047bb;--k:#fff;--w:#0047bb}
+.sec-follow_ups,.toc-follow_ups{--a:#ffd400;--k:#111;--w:#111}
+.sec-for_me,.toc-for_me{--a:#111;--k:#ffd400;--w:#111}
+.sec-daily,.toc-daily{--a:#e30613;--k:#fff;--w:#e30613}
+.sec-groups,.toc-groups{--a:#0047bb;--k:#fff;--w:#0047bb}
+.sec-activity,.toc-activity{--a:#ffd400;--k:#111;--w:#111}
+.sec-links,.toc-links{--a:#111;--k:#fff;--w:#111}
+
+.mast{border-top:16px solid #e30613;padding-top:14px}
+.mast-bar{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;border-bottom:2px solid #111;padding-bottom:8px}
+.mast-eyebrow{margin-top:12px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.mast-kind{background:#111;color:#fff;padding:1px 8px}
+.mast-title{font-size:44px;font-weight:800;line-height:1.05;letter-spacing:-.02em}
+.mast-lede{font-size:17px;font-weight:600;line-height:1.6;border-left:8px solid #e30613;padding-left:12px}
+.mast-meta{font-size:12px;font-weight:700;color:#555}
+.mast-mood{background:#ffd400;color:#111;padding:0 6px}
+
+.toc{border-top:6px solid #111;padding-top:8px}
+.toc-hd{font-size:11px;font-weight:800;letter-spacing:.24em}
+.toc a{color:#111;border-bottom:1px solid #ddd;padding:4px 0;font-weight:700}
+.toc-no{width:30px;flex:none;text-align:center;background:var(--a);color:var(--k);font-weight:800}
+.toc-c{font-size:12px;color:#777}
+
+.note{background:#f2f2f2;padding:12px 14px;border-left:8px solid #111}
+.note-hd{font-size:11px;font-weight:800;letter-spacing:.24em}
+.note-bd{font-size:14px;margin-top:2px}
+
+.sec{margin-top:36px}
+.sec-hd{background:var(--a);color:var(--k);padding:20px 14px 16px}
+.sec-title{font-size:24px;font-weight:800;letter-spacing:-.01em;padding-bottom:6px;border-bottom:4px solid currentColor;align-items:center}
+.sec-no{font-size:44px;font-weight:800;line-height:.9;letter-spacing:-.04em}
+.sec-en{font-size:11px;font-weight:800;letter-spacing:.26em;text-transform:uppercase;opacity:.85;margin-top:6px}
+.sec-count{border:2px solid currentColor;padding:0 6px;letter-spacing:.06em}
+.sec-bd{border-left:8px solid var(--a);padding-left:14px;margin-top:0;padding-top:16px}
+
+.kpis{gap:0}
+.kpi{border-top:2px solid #111;padding:8px 8px 10px 0}
+.kpi strong{font-size:34px;font-weight:800;letter-spacing:-.03em}
+.kpi span{font-size:11px;font-weight:700;letter-spacing:.1em}
+
+.topic{border-top:2px solid #111;padding-top:12px}
+.topic:first-child{border-top:0;padding-top:0}
+.topic-no{font-size:30px;font-weight:800;line-height:1;color:var(--w);width:44px;letter-spacing:-.04em}
+.topic-title{font-size:18px;font-weight:800;line-height:1.35}
+.is-lead .topic-title{font-size:22px}
+.chip{font-size:11px;font-weight:800;letter-spacing:.1em;background:#111;color:#fff;padding:0 6px}
+.points li::before{border-radius:0;background:var(--w);opacity:1}
+.quote{font-size:16px;font-weight:800;line-height:1.5;padding-left:14px;border-left:4px solid var(--w)}
+.quote cite{font-weight:700;color:#777}
+.people{color:#555;font-weight:600}
+.people-hd{font-weight:800;color:#111;text-transform:uppercase}
+
+.insight{border-top:2px solid #111;padding-top:10px}
+.stance{font-size:12px;font-weight:800;padding:2px 8px;color:#fff;background:#111}
+.st-consensus .stance{background:#0047bb}
+.st-debate .stance{background:#e30613}
+.st-insight .stance{background:#111}
+.st-warning .stance{background:#ffd400;color:#111}
+.claim{font-weight:800;font-size:16px}
+.detail{font-size:14px;color:#333}
+
+.todo{border-top:2px solid #111;padding-top:10px}
+.box{border:3px solid #111;border-radius:0}
+.forme .box{background:#ffd400}
+.todo-t{font-weight:800}
+.todo-meta{font-weight:700;color:#555}
+.act-hd{font-weight:800}
+
+.day{border-top:2px solid #111;padding-top:8px}
+.day-d{font-weight:800}
+.day-h{font-weight:800}
+.grp-bar{background:#eee}
+.grp-bar i{background:var(--a)}
+.panel{border-top:4px solid #111;padding-top:8px}
+.panel-hd{font-weight:800;font-size:12px;letter-spacing:.16em}
+
+.lnk{border-top:2px solid #111;padding-top:8px}
+.lnk-no{font-size:22px;font-weight:800;line-height:1;width:34px}
+.lnk a{color:#111;font-weight:800;text-decoration:none;border-bottom:3px solid #e30613}
+.domain{color:#777;font-weight:700}
+
+.ws-evidence summary{font-weight:700;color:#777}
+.ws-evidence li{background:#f4f4f4;padding:6px 8px}
+.foot{border-top:6px solid #111;padding-top:10px;color:#555}

@@ -1,0 +1,21 @@
+{
+  "name": "doodle",
+  "label": "涂鸦手账",
+  "description": "点阵纸、每章一张不同颜色的便签、胶带与手绘圈编号、荧光笔标题",
+  "order": 2,
+  "chart_style": "sketch",
+  "numerals": "arabic",
+  "palette": {"bar": "#e5486b", "bar_alt": "#ffc2cf", "axis": "#7b7268", "text": "#2d2a26", "grid": "#e4d9c4"},
+  "vars": {"brand": "群聊手账", "toc": "这期写了啥", "note": "小编碎碎念"},
+  "sections": {
+    "overview": {"en": "先看看数字"},
+    "topics": {"en": "今天聊了这些"},
+    "insights": {"en": "大家怎么看"},
+    "follow_ups": {"en": "别忘了"},
+    "for_me": {"en": "跟你有关哦"},
+    "daily": {"en": "一天一页"},
+    "groups": {"en": "各个群"},
+    "activity": {"en": "谁最能聊"},
+    "links": {"en": "值得点开"}
+  }
+}

@@ -1,0 +1,94 @@
+/* 报纸头版：新闻纸底色 + 报头双线；每章一个“版面”，奇数章黑底反白版头、偶数章粗线白版头，红色版号。 */
+body{background:#f2ede1;color:#1b1a17;font-family:"Noto Serif SC","Source Han Serif SC","Songti SC","SimSun",Georgia,serif}
+.sec-overview,.toc-overview{--a:#1b1a17}
+.sec-topics,.toc-topics{--a:#b3261e}
+.sec-insights,.toc-insights{--a:#1f4e79}
+.sec-follow_ups,.toc-follow_ups{--a:#7a5c00}
+.sec-for_me,.toc-for_me{--a:#b3261e}
+.sec-daily,.toc-daily{--a:#1f4e79}
+.sec-groups,.toc-groups{--a:#3d5a2a}
+.sec-activity,.toc-activity{--a:#1f4e79}
+.sec-links,.toc-links{--a:#7a5c00}
+
+.mast{text-align:center;border-bottom:4px double #1b1a17;padding-bottom:14px}
+.mast-bar{border-top:3px solid #1b1a17;border-bottom:1px solid #1b1a17;padding:5px 0;font-size:11px;letter-spacing:.24em;text-transform:uppercase}
+.mast-eyebrow{justify-content:center;margin-top:14px;font-size:13px;letter-spacing:.2em}
+.mast-kind{background:#b3261e;color:#f2ede1;padding:0 10px}
+.mast-title{font-size:42px;font-weight:900;letter-spacing:.06em;line-height:1.15}
+.mast-lede{font-size:17px;font-style:italic;max-width:600px;margin:10px auto 0;line-height:1.7}
+.mast-meta{justify-content:center;font-size:12px;letter-spacing:.08em;color:#4a463d}
+.mast-mood::before{content:"| ";}
+
+.toc{border:1px solid #1b1a17;padding:10px 14px;background:#f7f3ea}
+.toc-hd{font-weight:900;font-size:14px;letter-spacing:.3em;border-bottom:1px solid #1b1a17;padding-bottom:4px}
+.toc a{color:#1b1a17;border-bottom:1px dotted #8a8476;padding:3px 0}
+.toc-no{font-weight:900;color:var(--a);font-family:Georgia,serif}
+.toc-c{font-size:12px;font-style:italic}
+
+.note{border-top:3px solid #1b1a17;border-bottom:1px solid #1b1a17;padding:10px 0}
+.note-hd{display:inline-block;background:#1b1a17;color:#f2ede1;font-weight:900;font-size:12px;letter-spacing:.2em;padding:1px 8px;margin-bottom:6px}
+.note-bd{font-size:14px;text-align:justify}
+
+.sec{margin-top:30px;padding-bottom:20px;border-bottom:1px solid #1b1a17}
+.sec-hd{background:#1b1a17;color:#f2ede1;padding:10px 12px 8px}
+.sec:nth-of-type(even) .sec-hd{background:transparent;color:#1b1a17;border-top:6px solid #1b1a17;border-bottom:1px solid #1b1a17;padding:10px 0 8px}
+.sec-title{font-size:22px;font-weight:900;letter-spacing:.14em}
+.sec-no{font:900 24px/1 Georgia,serif;color:#e8a29b}
+.sec:nth-of-type(even) .sec-no{color:#b3261e}
+.sec-en{font:italic 11px Georgia,serif;letter-spacing:.24em;text-transform:uppercase;opacity:.8}
+.sec-en::before,.sec-en::after{content:"";width:28px;height:1px;background:currentColor}
+.sec-count{font:normal 11px Georgia,"Songti SC",serif;letter-spacing:.06em;border:1px solid currentColor;padding:0 6px}
+
+.kpis{gap:0;border:1px solid #1b1a17}
+.kpi{text-align:center;padding:10px 6px;border-right:1px solid #1b1a17;border-bottom:1px solid #1b1a17}
+.kpi strong{font:900 28px Georgia,"Songti SC",serif}
+.kpi span{font-size:12px;letter-spacing:.12em}
+
+.topic{border-top:1px solid #1b1a17;padding-top:14px}
+.topic:first-child{border-top:0;padding-top:0}
+.topic-no{font:italic 900 20px Georgia,serif;color:var(--a);width:30px}
+.topic-title{font-size:18px;font-weight:900;line-height:1.35}
+.is-lead .topic-no{display:none}
+.is-lead .topic-title{font-size:27px;line-height:1.25;border-bottom:1px solid #1b1a17;padding-bottom:8px}
+.topic-sum{text-align:justify}
+.is-lead .topic-sum::first-letter{float:left;font-size:3.1em;line-height:.95;font-weight:900;margin:4px 8px 0 0;color:#b3261e}
+.chip{font-size:11px;letter-spacing:.14em;text-transform:uppercase;border-bottom:2px solid var(--a);color:var(--a);font-weight:700}
+.points li::before{border-radius:0;width:5px;height:5px;background:#1b1a17}
+.quote{border-top:1px solid #1b1a17;border-bottom:1px solid #1b1a17;padding:8px 6px;text-align:center;font-style:italic;font-size:16px}
+.quote p::before{content:"「"}
+.quote p::after{content:"」"}
+.quote cite{font-size:12px;letter-spacing:.1em}
+.people{font-style:italic;color:#4a463d}
+.people-hd{font-style:normal;font-weight:900}
+
+.insight{border-left:4px solid #1b1a17;padding:2px 0 2px 12px}
+.stance{font-size:11px;font-weight:900;letter-spacing:.16em;border:1px solid #1b1a17;padding:0 6px}
+.st-debate .stance,.st-warning .stance{background:#b3261e;color:#f2ede1;border-color:#b3261e}
+.claim{font-weight:900;font-size:16px}
+.detail{font-size:14px;text-align:justify}
+
+.todo{border-bottom:1px dotted #8a8476;padding-bottom:8px}
+.box{border:1.5px solid #1b1a17;border-radius:0}
+.forme .box{background:#b3261e;border-color:#b3261e}
+.todo-t{font-weight:900}
+.todo-meta{font-style:italic;color:#4a463d}
+.act-hd{font-weight:900}
+
+.day{border-top:1px solid #1b1a17;padding-top:8px}
+.day-d{font-weight:900}
+.day-h{font-weight:900}
+.grp-bar{background:#ddd6c6}
+.grp-bar i{background:#1b1a17}
+.panel{border:1px solid #1b1a17;padding:10px}
+.panel-hd{font-weight:900;letter-spacing:.2em;border-bottom:1px solid #1b1a17;padding-bottom:4px}
+
+.lnk{border-bottom:1px dotted #8a8476;padding-bottom:8px}
+.lnk-no{font:900 16px Georgia,serif;color:var(--a)}
+.lnk a{color:#1b1a17;font-weight:900;text-decoration:underline;text-underline-offset:3px}
+.domain{font-style:italic;color:#4a463d}
+
+.ws-evidence summary{font-style:italic;color:#4a463d}
+.ws-evidence li{border-left:2px solid #8a8476;padding-left:8px}
+.foot{border-top:4px double #1b1a17;padding-top:10px;color:#4a463d;text-align:center}
+@media (min-width:640px){.kpi:nth-child(4n){border-right:0}.kpi{border-bottom:0}}
+@media (max-width:639px){.kpi:nth-child(2n){border-right:0}.kpi:nth-child(n+3){border-bottom:0}}

@@ -1,0 +1,90 @@
+/* 涂鸦手账：点阵纸 + 每章一张不同颜色的便签，胶带、手绘圈编号、荧光笔标题、硬阴影。 */
+body{background:#fffaf0;background-image:radial-gradient(#e4d9c4 1px,transparent 1.3px);background-size:18px 18px;color:#2d2a26;font-family:"Comic Sans MS","Microsoft YaHei","PingFang SC",sans-serif}
+.mast-title,.sec-title,.topic-title,.toc-hd,.note-hd,.panel-hd,.day-h,.claim,.todo-t{font-family:"KaiTi","STKaiti","Kaiti SC","Comic Sans MS",cursive}
+.sec-overview,.toc-overview{--a:#f2a516;--t:#fff2b3;--h:#ffd84d}
+.sec-topics,.toc-topics{--a:#e5486b;--t:#ffe1e8;--h:#ffa9bd}
+.sec-insights,.toc-insights{--a:#2f9e66;--t:#dcf3e5;--h:#94e0b5}
+.sec-follow_ups,.toc-follow_ups{--a:#3477d8;--t:#dde9ff;--h:#a7c6ff}
+.sec-for_me,.toc-for_me{--a:#8a52d6;--t:#efe2ff;--h:#cfb0ff}
+.sec-daily,.toc-daily{--a:#e57a1f;--t:#ffe8cf;--h:#ffc58e}
+.sec-groups,.toc-groups{--a:#6a9a1f;--t:#e9f6cf;--h:#c3e88a}
+.sec-activity,.toc-activity{--a:#1797a6;--t:#d6f1f4;--h:#8fdbe4}
+.sec-links,.toc-links{--a:#c0562d;--t:#fde4d6;--h:#f9b593}
+
+.mast{background:#fff;border:2.5px solid #2d2a26;border-radius:20px 12px 24px 14px/14px 22px 12px 20px;box-shadow:5px 6px 0 #2d2a26;padding:18px 18px 16px;position:relative}
+.mast::after{content:"";position:absolute;right:16px;top:-14px;width:84px;height:24px;background:repeating-linear-gradient(45deg,#ffd84d 0 8px,#ffe789 8px 16px);transform:rotate(6deg);opacity:.9}
+.mast-bar{font-size:12px;color:#7b7268}
+.mast-kind{background:#2d2a26;color:#fff;border-radius:99px;padding:0 10px;transform:rotate(-3deg);display:inline-block}
+.mast-eyebrow{font-size:13px;margin-top:10px;color:#7b7268}
+.mast-title{font-size:34px;font-weight:700;display:inline;background:linear-gradient(transparent 58%,#ffd84d 58%)}
+.mast-lede{font-size:16px;margin-top:12px}
+.mast-meta{font-size:13px;color:#7b7268}
+.mast-mood{border:2px dashed #2d2a26;border-radius:99px;padding:0 10px}
+
+.toc{background:#fff;border:2.5px dashed #2d2a26;border-radius:16px;padding:12px 16px}
+.toc-hd{font-size:18px;font-weight:700}
+.toc a{color:#2d2a26}
+.toc-no{width:26px;height:26px;border-radius:50%;background:var(--h);border:2px solid #2d2a26;display:inline-grid;place-items:center;font-size:12px;font-weight:700;flex:none}
+.toc-c{font-size:12px;color:#7b7268}
+
+.note{background:#fff7c2;border:2.5px solid #2d2a26;border-radius:6px;padding:14px 16px;transform:rotate(-.6deg);box-shadow:4px 4px 0 #2d2a26}
+.note-hd{font-size:18px;font-weight:700}
+.note-bd{font-size:14px}
+
+.sec{position:relative;background:var(--t);border:2.5px solid #2d2a26;border-radius:24px 14px 26px 12px/14px 26px 12px 24px;box-shadow:5px 6px 0 #2d2a26;padding:24px 18px 20px;margin-top:34px}
+.sec::before{content:"";position:absolute;top:-13px;left:50%;width:96px;height:24px;margin-left:-48px;background:rgba(255,255,255,.75);border:1.5px dashed rgba(45,42,38,.4);transform:rotate(-3deg)}
+.sec:nth-of-type(even)::before{transform:rotate(4deg);left:30%}
+.sec-hd{padding-bottom:14px;border-bottom:2.5px dashed rgba(45,42,38,.35)}
+.sec-title{font-size:25px;font-weight:700;align-items:center;background:linear-gradient(transparent 58%,var(--h) 58%);padding:0 8px}
+.sec-no{width:42px;height:42px;border:2.5px solid #2d2a26;border-radius:52% 46% 55% 44%/48% 55% 45% 52%;background:var(--a);color:#fff;display:inline-grid;place-items:center;font:700 17px "Comic Sans MS",cursive;transform:rotate(-7deg);box-shadow:2px 3px 0 #2d2a26}
+.sec-en{font-size:12px;color:#7b7268}
+.sec-count{background:#2d2a26;color:#fff;border-radius:99px;padding:0 10px;font-weight:700;font-size:12px;transform:rotate(4deg)}
+
+.kpi{background:#fff;border:2px solid #2d2a26;border-radius:14px 8px 16px 10px;padding:10px 12px;box-shadow:3px 3px 0 #2d2a26}
+.kpi strong{font-size:26px;font-weight:700;color:var(--a)}
+.kpi span{font-size:12px;color:#7b7268}
+
+.topic{background:#fffdf7;border:2px dashed #2d2a26;border-radius:16px;padding:12px 14px}
+.is-lead{border-style:solid;box-shadow:3px 3px 0 #2d2a26}
+.topic-no{font:700 26px "Comic Sans MS",cursive;color:var(--a);transform:rotate(-6deg)}
+.topic-title{font-size:19px;font-weight:700}
+.is-lead .topic-title{font-size:21px}
+.chip{border:1.5px solid #2d2a26;border-radius:99px;padding:0 8px;font-size:12px;background:var(--h)}
+.points li::before{content:"✓";background:none;width:auto;height:auto;top:0;left:0;color:var(--a);opacity:1;font-weight:700}
+.quote{position:relative;background:#fff;border:2px solid #2d2a26;border-radius:16px 16px 16px 4px;padding:8px 12px}
+.quote cite{color:#7b7268}
+.people{color:#7b7268}
+.people-hd{background:var(--h);padding:0 6px;border-radius:4px;color:#2d2a26}
+
+.insight{background:#fffdf7;border:2px solid #2d2a26;border-radius:14px;padding:10px 12px}
+.stance{border:2px solid currentColor;border-radius:6px;padding:0 8px;font-weight:700;font-size:13px;transform:rotate(-5deg);background:#fff}
+.st-consensus .stance{color:#2f9e66}
+.st-debate .stance{color:#e5486b}
+.st-insight .stance{color:#3477d8}
+.st-warning .stance{color:#d93c1c}
+.claim{font-size:17px;font-weight:700}
+.detail{font-size:14px}
+
+.todo{background:#fffdf7;border:2px solid #2d2a26;border-radius:12px;padding:10px 12px}
+.box{width:20px;height:20px;border:2.5px solid #2d2a26;border-radius:4px 6px 3px 5px;background:#fff;margin-top:3px}
+.forme .box{border-radius:50%;background:var(--h)}
+.todo-t{font-size:17px;font-weight:700}
+.todo-meta{color:#7b7268}
+.act-hd{background:var(--h);padding:0 6px;border-radius:4px}
+
+.day{background:#fffdf7;border:2px dashed #2d2a26;border-radius:12px;padding:10px}
+.day-d{font-weight:700;color:var(--a)}
+.day-h{font-size:16px;font-weight:700}
+.grp-bar{background:#fff;border:2px solid #2d2a26;border-radius:99px;height:14px}
+.grp-bar i{background:var(--a);border-radius:99px}
+.panel{background:#fffdf7;border:2px solid #2d2a26;border-radius:14px;padding:10px 12px}
+.panel-hd{font-size:17px;font-weight:700}
+
+.lnk{background:#fffdf7;border:2px solid #2d2a26;border-radius:12px;padding:10px 12px}
+.lnk-no{width:28px;height:28px;border-radius:50%;background:var(--h);border:2px solid #2d2a26;display:grid;place-items:center;font-size:12px;font-weight:700}
+.lnk a{color:#2d2a26;font-weight:700;text-decoration:underline wavy var(--a);text-underline-offset:4px}
+.domain{color:#7b7268}
+
+.ws-evidence summary{color:#7b7268;text-decoration:underline dotted}
+.ws-evidence li{background:#fff;border:1.5px dashed #c9bfae;border-radius:8px;padding:6px 8px}
+.foot{color:#7b7268;border-top:2.5px dashed #c9bfae;padding-top:12px}

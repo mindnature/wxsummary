@@ -1,0 +1,10 @@
+{
+  "name": "claude",
+  "label": "Claude 暖调",
+  "description": "米色纸张、白色章节卡、顶部章节色条，衬线标题居中加粗下划线，克制耐读",
+  "order": 1,
+  "chart_style": "clean",
+  "numerals": "arabic",
+  "palette": {"bar": "#c96442", "bar_alt": "#e6c3ae", "axis": "#8a8578", "text": "#3d3929", "grid": "#e8e4d8"},
+  "vars": {"brand": "WECHAT DIGEST", "toc": "本期目录", "note": "编者按"}
+}

@@ -1,0 +1,10 @@
+{
+  "name": "brutal",
+  "label": "新粗野主义",
+  "description": "粗黑描边、硬阴影、每章一块高饱和色板，贴纸式章节头，冲击力强",
+  "order": 7,
+  "chart_style": "clean",
+  "numerals": "arabic",
+  "palette": {"bar": "#000000", "bar_alt": "#7a7a7a", "axis": "#000000", "text": "#000000", "grid": "#000000"},
+  "vars": {"brand": "WECHAT DIGEST!!", "toc": "目录 / INDEX", "note": "编者按"}
+}

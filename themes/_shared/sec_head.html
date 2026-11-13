@@ -1,0 +1,5 @@
+<header class="sec-hd">
+  {% if cmd %}<p class="sec-cmd">{{ cmd }}</p>{% endif %}
+  <h2 class="sec-title"><span class="sec-no">{{ no }}</span><span class="sec-name">{{ title }}</span></h2>
+  <p class="sec-en"><span class="sec-en-t">{{ en }}</span>{% if count %}<span class="sec-count">{{ count }} 条</span>{% endif %}</p>
+</header>

@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>{% include "head.html" %}</head>
+<body class="th-{{ theme.name }} p-{{ period }}">
+<main class="page">
+  <header class="mast">
+    <div class="mast-bar"><span class="mast-brand">{{ tv.brand }}</span><span class="mast-date">{{ issue_date }} · {{ issue_weekday }}</span></div>
+    <p class="mast-eyebrow"><span class="mast-kind">{{ period_label }}</span><span class="mast-range">{{ range_text }}</span></p>
+    <h1 class="mast-title">{{ title }}</h1>
+    {% if one_liner %}<p class="mast-lede">{{ one_liner }}</p>{% endif %}
+    <p class="mast-meta"><span class="mast-chats">{{ chat_names }}</span>{% if mood %}<span class="mast-mood">氛围 · {{ mood }}</span>{% endif %}</p>
+  </header>
+
+  <nav class="toc" aria-label="目录">
+    <p class="toc-hd">{{ tv.toc }}</p>
+    <ol>{% for s in sec_list %}<li class="toc-it toc-{{ s.key }}"><a href="#sec-{{ s.key }}"><span class="toc-no">{{ s.no }}</span><span class="toc-t">{{ s.title }}</span>{% if s.count %}<span class="toc-c">{{ s.count }}</span>{% endif %}</a></li>{% endfor %}</ol>
+  </nav>
+
+  {% if editor_note %}<aside class="note"><p class="note-hd">{{ tv.note }}</p><p class="note-bd">{{ editor_note }}</p></aside>{% endif %}
+
+  <section class="sec sec-overview" id="sec-overview">
+    {% include "sec_head.html" with sec.overview %}
+    <div class="sec-bd">
+      <div class="kpis">{% for k in kpis %}<div class="kpi kpi-{{ loop.index }}"><strong>{{ k.value }}</strong><span>{{ k.label }}</span></div>{% endfor %}</div>
+    </div>
+  </section>
+
+  {% if topics %}
+  <section class="sec sec-topics" id="sec-topics">
+    {% include "sec_head.html" with sec.topics %}
+    <div class="sec-bd">
+      <ol class="topics">
+        {% for t in topics %}
+        <li class="topic{% if loop.first %} is-lead{% endif %}">
+          <div class="topic-no">{{ loop.index | pad2 }}</div>
+          <div class="topic-bd">
+            {% if t.tags or multi %}<p class="topic-tags">{% if multi %}{% if t.chat_name %}<span class="chip chip-chat">{{ t.chat_name }}</span>{% endif %}{% endif %}{% for g in t.tags %}<span class="chip">{{ g }}</span>{% endfor %}</p>{% endif %}
+            <h3 class="topic-title">{{ t.title }}</h3>
+            <p class="topic-sum">{{ t.summary }}</p>
+            {% if t.points %}<ul class="points">{% for p in t.points %}<li>{{ p }}</li>{% endfor %}</ul>{% endif %}
+            {% if t.quotes %}<div class="quotes">{% for q in t.quotes %}<blockquote class="quote"><p>{{ q.text }}</p><cite>{{ q.sender }}</cite></blockquote>{% endfor %}</div>{% endif %}
+            <div class="topic-ft">{% if t.people %}<p class="people"><span class="people-hd">参与</span>{{ t.people | join }}</p>{% endif %}{% include "evidence.html" with t %}</div>
+          </div>
+        </li>
+        {% endfor %}
+      </ol>
+    </div>
+  </section>
+  {% endif %}
+
+  {% if insights %}
+  <section class="sec sec-insights" id="sec-insights">
+    {% include "sec_head.html" with sec.insights %}
+    <div class="sec-bd">
+      <ul class="insights">
+        {% for it in insights %}
+        <li class="insight st-{{ it.stance }}">
+          <span class="stance">{{ it.stance_label }}</span>
+          <div class="insight-bd"><p class="claim">{{ it.claim }}</p>{% if it.detail %}<p class="detail">{{ it.detail }}</p>{% endif %}{% include "evidence.html" with it %}</div>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+  {% endif %}
+
+  {% if follow_ups %}
+  <section class="sec sec-follow_ups" id="sec-follow_ups">
+    {% include "sec_head.html" with sec.follow_ups %}
+    <div class="sec-bd">
+      <ul class="todos">
+        {% for f in follow_ups %}
+        <li class="todo"><span class="box" aria-hidden="true"></span><div class="todo-bd"><p class="todo-t">{{ f.title }}</p>{% if f.owner or f.due or multi %}<p class="todo-meta">{% if f.owner %}<span>负责 · {{ f.owner }}</span>{% endif %}{% if f.due %}<span>时间 · {{ f.due }}</span>{% endif %}{% if multi %}{% if f.chat_name %}<span>{{ f.chat_name }}</span>{% endif %}{% endif %}</p>{% endif %}{% if f.why %}<p class="todo-why">{{ f.why }}</p>{% endif %}{% include "evidence.html" with f %}</div></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+  {% endif %}
+
+  {% if links %}
+  <section class="sec sec-links" id="sec-links">
+    {% include "sec_head.html" with sec.links %}
+    <div class="sec-bd">
+      <ol class="links">
+        {% for l in links %}<li class="lnk"><span class="lnk-no">{{ loop.index | pad2 }}</span><div class="lnk-bd"><a href="{{ l.url }}" rel="noopener noreferrer">{{ l.title }}</a><span class="domain">{{ l.domain }}</span>{% if l.note %}<p class="lnk-note">{{ l.note }}</p>{% endif %}</div></li>{% endfor %}
+      </ol>
+    </div>
+  </section>
+  {% endif %}
+
+  {% if for_me %}
+  <section class="sec sec-for_me" id="sec-for_me">
+    {% include "sec_head.html" with sec.for_me %}
+    <div class="sec-bd">
+      <ul class="todos forme">
+        {% for f in for_me %}
+        <li class="todo"><span class="box" aria-hidden="true"></span><div class="todo-bd"><p class="todo-t">{{ f.title }}</p>{% if f.action %}<p class="todo-why"><span class="act-hd">建议</span>{{ f.action }}</p>{% endif %}{% include "evidence.html" with f %}</div></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+  {% endif %}
+
+  {% if has_daily %}
+  <section class="sec sec-daily" id="sec-daily">
+    {% include "sec_head.html" with sec.daily %}
+    <div class="sec-bd">
+      <div class="chart">{{ charts.daily | raw }}</div>
+      {% if has_daily_notes %}
+      <ul class="days">
+        {% for d in daily %}{% if d.note %}<li class="day"><span class="day-d">{{ d.date | md }}<em>周{{ d.weekday }}</em></span><div class="day-bd"><p class="day-h">{{ d.note.headline }}</p>{% if d.note.points %}<ul class="points">{% for p in d.note.points %}<li>{{ p }}</li>{% endfor %}</ul>{% endif %}</div></li>{% endif %}{% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+  </section>
+  {% endif %}
+
+  {% if groups %}
+  <section class="sec sec-groups" id="sec-groups">
+    {% include "sec_head.html" with sec.groups %}
+    <div class="sec-bd">
+      <ul class="groups">
+        {% for g in groups %}<li class="grp"><span class="grp-n">{{ g.chat_name }}</span><span class="grp-bar"><i style="width:{{ g.bar_pct }}%"></i></span><span class="grp-v">{{ g.messages }}</span></li>{% endfor %}
+      </ul>
+    </div>
+  </section>
+  {% endif %}
+
+  {% if top_senders %}
+  <section class="sec sec-activity" id="sec-activity">
+    {% include "sec_head.html" with sec.activity %}
+    <div class="sec-bd panels">
+      <div class="panel"><p class="panel-hd">谁在说话</p>{% if tv.ascii %}<pre class="ascii">{% for r in ascii_senders %}{{ r.label }}
+  {{ r.bar }} {{ r.value }}
+{% endfor %}</pre>{% else %}<div class="chart">{{ charts.senders | raw }}</div>{% endif %}</div>
+      <div class="panel"><p class="panel-hd">什么时候</p>{% if tv.ascii %}<pre class="ascii">{% for r in ascii_hourly %}{{ r.label }}:00 {{ r.bar }} {{ r.value }}
+{% endfor %}</pre>{% else %}<div class="chart">{{ charts.hourly | raw }}</div>{% endif %}</div>
+    </div>
+  </section>
+  {% endif %}
+
+  {% if empty %}<section class="sec sec-empty"><div class="sec-bd"><p>这段时间群里很安静，没有可总结的发言。</p></div></section>{% endif %}
+
+  <footer class="foot">{% include "footnote.html" %}</footer>
+</main>
+</body>
+</html>

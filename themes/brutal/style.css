@@ -1,0 +1,91 @@
+/* 新粗野主义：奶油底 + 粗黑描边 + 硬阴影；每章一块高饱和色板，居中贴纸式章节头（黑底编号 + 白底标题）。 */
+body{background:#f7f1e1;color:#000;font-family:"Arial Black","Microsoft YaHei","PingFang SC",sans-serif;font-weight:500}
+.sec-overview,.toc-overview{--a:#ff90e8}
+.sec-topics,.toc-topics{--a:#a6faff}
+.sec-insights,.toc-insights{--a:#b8ff9f}
+.sec-follow_ups,.toc-follow_ups{--a:#ffc29f}
+.sec-for_me,.toc-for_me{--a:#ffa6a6}
+.sec-daily,.toc-daily{--a:#c4a1ff}
+.sec-groups,.toc-groups{--a:#ffdb58}
+.sec-activity,.toc-activity{--a:#c4a1ff}
+.sec-links,.toc-links{--a:#a6faff}
+
+.mast{background:#ffdb58;border:3px solid #000;box-shadow:8px 8px 0 #000;padding:18px}
+.mast-bar{font-size:12px;font-weight:900;letter-spacing:.12em;border-bottom:3px solid #000;padding-bottom:8px}
+.mast-eyebrow{margin-top:12px;font-size:13px;font-weight:900}
+.mast-kind{background:#000;color:#ffdb58;padding:1px 10px}
+.mast-title{font-size:36px;font-weight:900;line-height:1.15}
+.mast-lede{font-size:16px;font-weight:700;background:#fff;border:3px solid #000;padding:10px 12px}
+.mast-meta{font-size:13px;font-weight:900}
+.mast-mood{background:#ff90e8;border:2px solid #000;padding:0 8px}
+
+.toc{background:#fff;border:3px solid #000;box-shadow:6px 6px 0 #000;padding:12px 14px}
+.toc-hd{font-size:14px;font-weight:900}
+.toc a{color:#000;background:var(--a);border:2px solid #000;padding:4px 8px;font-weight:900;font-size:13px}
+.toc-no{font-weight:900}
+.toc-c{font-size:11px;background:#000;color:#fff;padding:0 5px}
+
+.note{background:#fff;border:3px dashed #000;padding:12px 14px}
+.note-hd{display:inline-block;background:#000;color:#fff;font-weight:900;padding:0 8px;font-size:13px;margin-bottom:6px}
+.note-bd{font-size:14px;font-weight:600}
+
+.sec{background:var(--a);border:3px solid #000;box-shadow:8px 8px 0 #000;padding:18px 14px 16px;margin-top:38px}
+.sec-hd{padding-bottom:4px}
+.sec-title{gap:0;align-items:stretch}
+.sec-no{background:#000;color:var(--a);font-size:22px;font-weight:900;padding:4px 12px;border:3px solid #000;transform:rotate(-3deg)}
+.sec-name{background:#fff;border:3px solid #000;padding:4px 14px;font-size:21px;font-weight:900;box-shadow:4px 4px 0 #000;transform:rotate(1.5deg)}
+.sec-en{font-size:11px;font-weight:900;letter-spacing:.2em;text-transform:uppercase;margin-top:10px}
+.sec-count{background:#000;color:#fff;padding:0 8px;letter-spacing:0}
+
+.kpi{background:#fff;border:3px solid #000;box-shadow:4px 4px 0 #000;padding:10px 12px}
+.kpi strong{font-size:30px;font-weight:900}
+.kpi span{font-size:12px;font-weight:900}
+
+.topic{background:#fff;border:3px solid #000;box-shadow:5px 5px 0 #000;padding:12px 14px}
+.topic-no{font-size:26px;font-weight:900;line-height:1;width:38px;-webkit-text-stroke:1.5px #000;color:var(--a)}
+.topic-title{font-size:17px;font-weight:900}
+.is-lead .topic-title{font-size:20px}
+.topic-sum{font-weight:600}
+.chip{background:var(--a);border:2px solid #000;padding:0 7px;font-size:12px;font-weight:900}
+.points li{font-weight:600}
+.points li::before{border-radius:0;background:#000;opacity:1}
+.quote{background:var(--a);border:3px solid #000;padding:8px 12px;font-weight:800}
+.quote cite{font-weight:900}
+.people{font-weight:700}
+.people-hd{background:#000;color:#fff;padding:0 6px}
+
+.insight{background:#fff;border:3px solid #000;box-shadow:5px 5px 0 #000;padding:10px 12px}
+.stance{font-size:13px;font-weight:900;border:2px solid #000;padding:0 8px;transform:rotate(-3deg)}
+.st-consensus .stance{background:#b8ff9f}
+.st-debate .stance{background:#ffc29f}
+.st-insight .stance{background:#a6faff}
+.st-warning .stance{background:#ff6b6b}
+.claim{font-weight:900}
+.detail{font-size:14px;font-weight:600}
+
+.todo{background:#fff;border:3px solid #000;box-shadow:5px 5px 0 #000;padding:10px 12px}
+.box{width:20px;height:20px;border:3px solid #000;background:var(--a);margin-top:2px}
+.todo-t{font-weight:900}
+.todo-meta,.todo-why{font-weight:700}
+.act-hd{background:#000;color:#fff;padding:0 6px}
+
+.day{background:#fff;border:3px solid #000;padding:10px}
+.day-d{font-weight:900}
+.day-h{font-weight:900}
+.grp{background:#fff;border:3px solid #000;padding:6px 10px}
+.grp-bar{background:#fff;border:2px solid #000;height:16px}
+.grp-bar i{background:#000}
+.panel{background:#fff;border:3px solid #000;box-shadow:5px 5px 0 #000;padding:10px 12px}
+.panel-hd{font-weight:900;display:inline-block;background:#000;color:#fff;padding:0 8px}
+.chart{background:#fff;border:3px solid #000;padding:8px}
+.panel .chart{border:0;padding:0}
+
+.lnk{background:#fff;border:3px solid #000;box-shadow:5px 5px 0 #000;padding:10px 12px}
+.lnk-no{font-size:20px;font-weight:900;width:32px}
+.lnk a{color:#000;font-weight:900;text-decoration:none;background:linear-gradient(transparent 60%,var(--a) 60%)}
+.domain{font-weight:900}
+.lnk-note{font-weight:600}
+
+.ws-evidence summary{font-weight:900;text-decoration:underline}
+.ws-evidence li{background:#f7f1e1;border:2px solid #000;padding:6px 8px;font-weight:600}
+.foot{background:#fff;border:3px solid #000;padding:10px 12px;font-weight:700}

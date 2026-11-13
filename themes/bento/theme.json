@@ -1,0 +1,10 @@
+{
+  "name": "bento",
+  "label": "便当仪表盘",
+  "description": "渐变头图、每章一个不同色调的大圆角容器，居中胶囊章节头，内部白色小卡",
+  "order": 6,
+  "chart_style": "clean",
+  "numerals": "arabic",
+  "palette": {"bar": "#4f46e5", "bar_alt": "#c7d2fe", "axis": "#6b7280", "text": "#1f2937", "grid": "#e5e7eb"},
+  "vars": {"brand": "WeChat Digest", "toc": "快速导航", "note": "编者按"}
+}

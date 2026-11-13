@@ -1,0 +1,89 @@
+/* Claude 暖调：米色纸张 + 白色章节卡；每章顶部色条、方块编号、虚线分隔，章节色各不相同。 */
+body{background:#f3eee4;color:#3d3929;font-family:-apple-system,"PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif}
+.mast-title,.sec-title,.topic-title,.kpi strong,.sec-no,.topic-no,.lnk-no{font-family:"Noto Serif SC","Source Han Serif SC","Songti SC","SimSun",Georgia,serif}
+.sec-overview,.toc-overview{--a:#3d3929;--t:#efe9dc}
+.sec-topics,.toc-topics{--a:#c96442;--t:#f8e6dc}
+.sec-insights,.toc-insights{--a:#5a7d66;--t:#e3eee5}
+.sec-follow_ups,.toc-follow_ups{--a:#b07e22;--t:#f6ecd4}
+.sec-for_me,.toc-for_me{--a:#8b5a86;--t:#f1e3ef}
+.sec-daily,.toc-daily{--a:#4b6a8a;--t:#e2eaf2}
+.sec-groups,.toc-groups{--a:#6b7a45;--t:#ebeedd}
+.sec-activity,.toc-activity{--a:#4b6a8a;--t:#e2eaf2}
+.sec-links,.toc-links{--a:#7d6a52;--t:#efe7db}
+
+.mast-bar{font-size:11px;letter-spacing:.16em;color:#8a8578;border-bottom:1px solid #dcd2bf;padding-bottom:10px}
+.mast-eyebrow{margin-top:16px;font-size:13px;color:#8a8578}
+.mast-kind{background:#c96442;color:#fff;border-radius:99px;padding:1px 12px;font-weight:600}
+.mast-title{font-size:34px;font-weight:600;color:#2b2818;letter-spacing:.01em}
+.mast-lede{font-size:17px;line-height:1.75;color:#4a4535;border-left:3px solid #c96442;padding-left:14px}
+.mast-meta{font-size:13px;color:#8a8578}
+.mast-mood{border:1px solid #d6ccb8;border-radius:99px;padding:0 10px}
+
+.toc{background:#fffdf8;border:1px solid #e6ddcb;border-radius:16px;padding:14px 18px}
+.toc-hd{font-size:12px;letter-spacing:.14em;color:#8a8578}
+.toc a{color:#3d3929;padding:4px 0;border-bottom:1px dotted #e0d6c3}
+.toc-no{font-family:Georgia,serif;font-weight:700;color:var(--a)}
+.toc-c{font-size:12px;color:#8a8578}
+
+.note{background:#fbf1e6;border:1px solid #efd5c0;border-radius:14px;padding:14px 16px}
+.note-hd{font-weight:700;color:#c96442;font-size:13px;margin-bottom:4px}
+.note-bd{font-size:14px;color:#5a5240}
+
+.sec{background:#fffdf8;border:1px solid #e6ddcb;border-top:5px solid var(--a);border-radius:16px;padding:18px 20px 22px;box-shadow:0 2px 0 rgba(61,57,41,.04)}
+.sec-hd{padding:4px 0 2px}
+.sec-title{font-size:22px;font-weight:700;color:#2b2818;padding:0 8px 4px;box-shadow:inset 0 -9px 0 var(--t);border-bottom:3px solid var(--a)}
+.sec-no{font:700 22px Georgia,serif;color:var(--a)}
+.sec-en{font:italic 12px Georgia,serif;letter-spacing:.14em;text-transform:uppercase;color:var(--a);margin-top:4px}
+.sec-count{font:normal 12px -apple-system,"Microsoft YaHei",sans-serif;letter-spacing:0;text-transform:none;border-radius:99px;padding:0 9px;background:var(--t);color:var(--a);font-weight:700}
+
+.kpi{background:var(--t);border-radius:12px;padding:12px 14px}
+.kpi strong{font-size:26px;color:#2b2818}
+.kpi span{font-size:12px;color:#8a8578;margin-top:2px}
+
+.topic{padding-top:14px;border-top:1px solid #efe6d5}
+.topic:first-child{border-top:0;padding-top:0}
+.topic-no{width:34px;font-size:24px;font-weight:700;color:var(--a);line-height:1.1}
+.topic-title{font-size:17px;font-weight:700;color:#2b2818}
+.is-lead .topic-title{font-size:20px}
+.topic-sum{color:#4a4535}
+.chip{background:var(--t);color:var(--a);border-radius:99px;padding:0 9px;font-size:12px}
+.points li::before{background:var(--a)}
+.quote{background:var(--t);border-left:3px solid var(--a);border-radius:0 10px 10px 0;padding:8px 12px;font-family:"Noto Serif SC","Songti SC",serif}
+.quote cite{color:#8a8578}
+.people{color:#8a8578}
+.people-hd{color:var(--a);font-weight:700}
+
+.insight{padding:12px;border-radius:12px;background:#faf6ee}
+.stance{font-size:12px;font-weight:700;border-radius:6px;padding:1px 8px}
+.st-consensus .stance{background:#e1eee4;color:#3f6b4b}
+.st-debate .stance{background:#f8e3d6;color:#a34f2c}
+.st-insight .stance{background:#e1e9f3;color:#3d5f86}
+.st-warning .stance{background:#f6dcdc;color:#a33a3a}
+.claim{font-weight:700;color:#2b2818}
+.detail{font-size:14px;color:#5a5240}
+
+.todo{padding:10px 12px;border-radius:12px;background:var(--t)}
+.box{border:2px solid var(--a);border-radius:4px;background:#fffdf8}
+.forme .box{border-radius:50%}
+.todo-t{font-weight:700;color:#2b2818}
+.todo-meta,.todo-why{color:#6d6553}
+.act-hd{color:var(--a);font-weight:700}
+
+.day{padding-top:10px;border-top:1px solid #efe6d5}
+.day-d{color:var(--a);font-weight:700}
+.day-h{font-weight:700}
+.grp-bar{background:#efe7d6;border-radius:99px}
+.grp-bar i{background:var(--a);border-radius:99px}
+.panel{background:#faf6ee;border-radius:12px;padding:12px}
+.panel-hd{font-weight:700;color:var(--a);font-size:13px}
+
+.lnk{padding:10px 0;border-top:1px solid #efe6d5}
+.lnk:first-child{border-top:0;padding-top:0}
+.lnk-no{font-weight:700;color:var(--a)}
+.lnk a{color:#2b2818;font-weight:700;text-decoration:underline;text-decoration-color:var(--a);text-underline-offset:3px}
+.domain{color:#8a8578}
+.lnk-note{color:#5a5240}
+
+.ws-evidence summary{color:#9a927f}
+.ws-evidence li{background:#faf6ee;border-radius:8px;padding:6px 8px}
+.foot{color:#8a8578;border-top:1px solid #dcd2bf;padding-top:12px}

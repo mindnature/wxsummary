@@ -1,0 +1,6 @@
+<div class="ws-footnote">
+  <p>范围：{{ range_text }}（{{ timezone }}，左闭右开）{% if source_latest %} · 数据最新 {{ source_latest | date }} {{ source_latest | hm }}{% endif %}</p>
+  {% if stats_only %}<p>本报告为仅统计版，未经语义编辑。</p>{% endif %}
+  {% for w in warnings %}<p>注意：{{ w }}</p>{% endfor %}
+  <p>semantic_truth: not-verified · 格式校验通过不代表观点已核实 · 由 {{ generator }} 生成</p>
+</div>

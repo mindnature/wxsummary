@@ -1,0 +1,1 @@
+{% if evidence_refs %}<details class="ws-evidence"><summary>依据 {{ evidence_refs | length }} 条</summary><ul>{% for r in evidence_refs %}<li><span class="ws-ev-meta">{{ r.time | md }} {{ r.time | hm }} · {{ r.sender }}{% if multi %} · {{ r.chat_name }}{% endif %}</span>{{ r.text }}</li>{% endfor %}</ul></details>{% endif %}

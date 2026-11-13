@@ -1,0 +1,15 @@
+/* 所有主题共享的基础样式：重置、可访问性、通用工具类。主题 style.css 在其后加载并覆盖。 */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;word-break:break-word;overflow-wrap:anywhere;-webkit-font-smoothing:antialiased}
+img,svg{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3,h4,p,ul,ol,figure,blockquote{margin:0}
+ul,ol{padding:0;list-style:none}
+.ws-chart text{font-family:inherit}
+.ws-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.ws-muted{opacity:.7}
+.ws-nowrap{white-space:nowrap}
+details>summary{cursor:pointer;list-style:none}
+details>summary::-webkit-details-marker{display:none}
+@media print{.ws-noprint{display:none!important}body{background:#fff!important}}

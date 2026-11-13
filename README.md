@@ -22,7 +22,7 @@ py -3 wxsummary.py groups --source-dir .\demo-mirror
 py -3 wxsummary.py quick --source-dir .\demo-mirror --chats "独立开发者交流群" --date 2026-10-19
 ```
 
-`quick` 立刻生成**纯统计版** Markdown/HTML，不调用模型。默认报告路径：`~/Documents/wechat-summary`。
+`quick` 立刻生成**纯统计版** Markdown/HTML，不调用模型。默认报告路径：`~/Documents/wxsummary`。
 
 ## 每天按需使用
 
@@ -68,7 +68,7 @@ py -3 wxsummary.py quick --source-json .\messages.json --chats "工作交流群"
 
 ## 自定义与隐私
 
-复制 [config.example.yaml](config.example.yaml) 到 `~/.wechat-report/config.yaml`，可设置 `source.path`、本人 `me.names`/`me.ids`、常用群集合 `group_sets` 和输出位置 `output.root`。可选主题：newspaper、ink、claude、doodle、swiss、bento、brutal、terminal。PNG 长图需要本机 Chrome/Edge。
+复制 [config.example.yaml](config.example.yaml) 到 `~/.wxsummary/config.yaml`，可设置 `source.path`、本人 `me.names`/`me.ids`、常用群集合 `group_sets` 和输出位置 `output.root`。可选主题：newspaper、ink、claude、doodle、swiss、bento、brutal、terminal。PNG 长图需要本机 Chrome/Edge。
 
 系统校验消息 ID、群归属和引文连续片段，**不等于能证明摘要结论真实**；提议不能冒充决议，群内观点不能当成外部事实，报告标注 `semantic_truth: not-verified`。@我识别和多媒体解析不是全覆盖，重要事项须回查原始消息。不要把明文数据库、素材和群报提交到 GitHub；含个人、单位或学生信息时，先确认处理权限。
 

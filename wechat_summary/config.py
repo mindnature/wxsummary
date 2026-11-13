@@ -1,6 +1,6 @@
 """配置加载。
 
-配置文件默认在 ~/.wechat-report/config.yaml，可用 --config 或环境变量 WS_CONFIG 覆盖。
+配置文件默认在 ~/.wxsummary/config.yaml，可用 --config 或环境变量 WS_CONFIG 覆盖。
 支持 .yaml/.yml（内置 YAML 子集解析器，安装了 PyYAML 时优先用它）与 .json。
 敏感字段可用环境变量覆盖，日志与 --json 输出一律脱敏。
 """
@@ -15,7 +15,7 @@ from typing import Any
 
 from .errors import WSError
 
-DEFAULT_CONFIG_PATH = Path("~/.wechat-report/config.yaml")
+DEFAULT_CONFIG_PATH = Path("~/.wxsummary/config.yaml")
 
 DEFAULTS: dict[str, Any] = {
     "timezone": "Asia/Shanghai",
@@ -30,7 +30,7 @@ DEFAULTS: dict[str, Any] = {
     "me": {"ids": [], "names": []},
     "group_sets": {},
     "output": {
-        "root": "~/Documents/wechat-summary",
+        "root": "~/Documents/wxsummary",
         "chunk_messages": 1500,
         "text_limit": 600,
     },

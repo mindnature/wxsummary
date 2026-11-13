@@ -211,7 +211,7 @@ def _build_material(
     return {
         "schema_version": MATERIAL_SCHEMA,
         "semantic_version": SEMANTIC_VERSION,
-        "generator": f"wechat-summary {__version__}",
+        "generator": f"wxsummary {__version__}",
         "meta": {
             "title": title,
             "window": window.to_dict(),
@@ -327,7 +327,7 @@ def prepare(
 
     run_meta = {
         "schema_version": MATERIAL_SCHEMA,
-        "generator": f"wechat-summary {__version__}",
+        "generator": f"wxsummary {__version__}",
         "mode": "separate" if len(groups) > 1 else "merged",
         "set_label": set_label,
         "window": window.to_dict(),

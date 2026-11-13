@@ -126,8 +126,10 @@ def validate_semantic(semantic: Any, material: dict[str, Any], evidence: dict[st
                 qid, qtext = quote.get("msg_id"), quote.get("text", "")
                 if qid not in evidence:
                     errors.append(f"{where}.quotes[{qi}] 的 msg_id 不存在：{qid}")
-                elif _norm(qtext) and _norm(qtext).strip("…") not in _norm(evidence[qid]["text"]):
-                    errors.append(f"{where}.quotes[{qi}] 不是该消息原文的片段，请逐字摘录")
+                elif not isinstance(qtext, str) or not qtext.strip():
+                    errors.append(f"{where}.quotes[{qi}] 引文不能为空")
+                elif qtext not in evidence[qid]["text"]:
+                    errors.append(f"{where}.quotes[{qi}] 不是该消息原文的连续片段，请逐字摘录")
                 elif qid not in ev:
                     item.setdefault("evidence", []).append(qid)
     return errors, warnings

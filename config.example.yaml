@@ -10,7 +10,7 @@ me:
   names: []   # 可填本人在微信群中的昵称，例如 ["我的昵称"]
 group_sets: {}
 output:
-  root: "~/Documents/wechat-summary"
+  root: "~/Documents/wxsummary"
   chunk_messages: 1500
   text_limit: 600
 render:

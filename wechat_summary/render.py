@@ -118,7 +118,7 @@ def build_view(report: dict[str, Any], theme: dict[str, Any] | None = None) -> d
         daily_rows.append({**d, "bar_pct": round(100 * d["messages"] / max_day), "note": sem_daily.get(d["date"]),
                            "ascii": "█" * filled + "░" * (20 - filled)})
     view = {
-        "generator": f"wechat-summary {__version__}",
+        "generator": f"wxsummary {__version__}",
         "title": sem.get("title") or meta["title"],
         "period": window["period"],
         "period_label": window["label"],
@@ -393,7 +393,7 @@ def render_run(config: dict[str, Any], run: str, *, themes: list[str], formats: 
     status: dict[str, Any] = {
         "ok": True,
         "status": "partial" if partial else "complete",
-        "generator": f"wechat-summary {__version__}",
+        "generator": f"wxsummary {__version__}",
         "rendered_at": datetime.now().astimezone().isoformat(timespec="seconds"),
         "themes": theme_names,
         "formats": fmts,

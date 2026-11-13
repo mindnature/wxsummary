@@ -1,0 +1,21 @@
+{
+  "name": "terminal",
+  "label": "终端暗色",
+  "description": "暗色终端，每章一个独立窗口，边框与发光色按章节区分，章节头是一条命令",
+  "order": 4,
+  "chart_style": "clean",
+  "numerals": "hex",
+  "palette": {"bar": "#3fb950", "bar_alt": "#238636", "axis": "#6e7681", "text": "#c9d1d9", "grid": "#21262d"},
+  "vars": {"brand": "me@wechat:~/digest$", "toc": "ls -1 sections/", "note": "editor_note", "ascii": true},
+  "sections": {
+    "overview": {"cmd": "$ cat overview.json", "en": "~/digest/overview"},
+    "topics": {"cmd": "$ cat topics.log | head", "en": "~/digest/topics"},
+    "insights": {"cmd": "$ grep -E 'debate|insight' views.log", "en": "~/digest/insights"},
+    "follow_ups": {"cmd": "$ todo list --open", "en": "~/digest/todo"},
+    "for_me": {"cmd": "$ notify --user me", "en": "~/digest/inbox"},
+    "daily": {"cmd": "$ ls daily/", "en": "~/digest/daily"},
+    "groups": {"cmd": "$ du -sh groups/*", "en": "~/digest/groups"},
+    "activity": {"cmd": "$ top -o messages", "en": "~/digest/activity"},
+    "links": {"cmd": "$ curl -I links.txt", "en": "~/digest/links"}
+  }
+}

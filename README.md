@@ -6,7 +6,7 @@ Windows 微信 4.x 本地数据接入 → 刷新明文镜像 → 选群及日期
 
 ## 安装
 
-Windows PowerShell（Python 3.10+，推荐 3.11/3.12）：
+Windows PowerShell（Python 3.10+，推荐 3.11/3.12；Windows 安装时会自动补充 tzdata 时区数据）：
 
 ~~~powershell
 git clone https://github.com/mindnature/wxsummary.git "$HOME\.agents\skills\wxsummary"

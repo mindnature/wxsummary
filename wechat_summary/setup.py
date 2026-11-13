@@ -99,10 +99,10 @@ def _yaml_dump(data: dict[str, Any], indent: int = 0) -> list[str]:
     lines: list[str] = []
     for key, value in data.items():
         if isinstance(value, dict) and value:
-            lines.append(" " * indent + str(key) + ":")
+            lines.append(" " * indent + _encode(str(key)) + ":")
             lines.extend(_yaml_dump(value, indent + 2))
         else:
-            lines.append(" " * indent + str(key) + ": " + _encode(value))
+            lines.append(" " * indent + _encode(str(key)) + ": " + _encode(value))
     return lines
 
 
@@ -241,8 +241,8 @@ def run_setup(config: dict[str, Any], args: Any) -> tuple[dict[str, Any], int]:
     if configured_path and Path(configured_path).expanduser().is_dir():
         try:
             with open_source(config) as src:
-                src.doctor()
-            configured_ready = True
+                doctor = src.doctor()
+            configured_ready = bool(doctor.get("readable_message_dbs", 1))
         except (WSError, OSError):
             pass
     result: dict[str, Any] = {
@@ -257,7 +257,7 @@ def run_setup(config: dict[str, Any], args: Any) -> tuple[dict[str, Any], int]:
     }
     if getattr(args, "status", False) or not (getattr(args, "install_tool", False) or getattr(args, "extract_key", False)):
         if configured_ready:
-            result["next"] = "python wxsummary.py refresh；python wxsummary.py prepare --chats 群名"
+            result["next"] = ("python wxsummary.py prepare --refresh --chats 群名" if (config.get("refresh") or {}).get("command") else "请先更新手动明文镜像，再运行 python wxsummary.py prepare --chats 群名")
             return result, 0
         if not roots:
             return _need("wechat_data_missing", "未找到本机微信 4.x 数据目录，请先登录 Windows 微信。",

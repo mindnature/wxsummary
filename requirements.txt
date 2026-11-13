@@ -1,2 +1,3 @@
-# 本项目不会自动获取微信密钥；读取已有授权明文镜像时需要解压压缩消息
+# wxsummary CLI 本身不读取密钥；首次接入由用户授权的外部工具负责
 zstandard>=0.22,<1.0; python_version < "3.14"
+tzdata>=2025.2; platform_system == "Windows"

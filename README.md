@@ -22,7 +22,7 @@ py -3 wxsummary.py setup --status --json
 
 安装并授权接入本机微信后，在**本机 Codex 对话**中说：
 
-> 使用 wxsummary Skill，为我生成2026年11月13日「蓝哥-AI交流四群」的完整日报。
+> 使用 wxsummary Skill，为我生成2026年11月13日「示例交流群」的完整日报。
 
 也可以说「上周某群的周报」「2026年11月某群的月报」。Agent 会按照 [SKILL.md](SKILL.md) 和 [完整编辑规范](prompts/full_report.md) 理解日期，按需刷新、全量阅读分块、提炼有证据支持的 5—8 个核心话题（没有这么多真实话题时不得凑数），分开写背景/观点/争议/结论，整理资源链接与待办，再执行严格校验。默认交付：
 
@@ -116,4 +116,4 @@ py -3 wxsummary.py quick --source-dir .\demo-mirror --chats "独立开发者交�
 py -3 -m unittest discover -s tests -v
 ~~~
 
-核心 SQLite 解析、统计、模板与校验改编自 [Andrew-liu/wechat-summary](https://github.com/Andrew-liu/wechat-summary)（MIT），保留 [LICENSE](LICENSE) 与 [NOTICE.md](NOTICE.md)。接入架构参考其 setup/refresh 分层；外部密钥提取及数据库解密代码并不复制进本仓库。本项目与腾讯、微信无关。
+本项目与腾讯、微信无关。开源许可及第三方代码的版权信息请参阅 [LICENSE](LICENSE) 和 [NOTICE.md](NOTICE.md)。

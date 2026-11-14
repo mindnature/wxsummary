@@ -1,8 +1,8 @@
-# wxsummary V1.1｜按需微信群报
+# wxsummary V1.2｜默认完整语义日报 / 周报 / 月报
 
 Windows 微信 4.x 本地数据接入 → 刷新明文镜像 → 选群及日期 → Agent 语义总结 → 证据校验 → Markdown/HTML/PNG。
 
-**本项目不是微信官方 API 客户端。** 本地微信数据库可能加密，不能直接用 sqlite3 读取。V1.1 增加可选的首次接入和按需刷新；绝不在安装时静默取钥或关闭微信。语义分析由用户运行的 Codex/Claude Agent 完成，不会因为运行 Python CLI 就自动调用模型。
+**本项目不是微信官方 API 客户端。** 本地微信数据库可能加密，不能直接用 sqlite3 读取。V1.1 增加可选的首次接入和按需刷新，V1.2 将完整语义群报设为 Skill 默认输出；绝不在安装时静默取钥或关闭微信。语义分析由用户运行的 Codex/Claude Agent 完成，不会因为运行 Python CLI 就自动调用模型。
 
 ## 安装
 
@@ -16,6 +16,22 @@ py -3 wxsummary.py setup --status --json
 ~~~
 
 也可按 [SKILL.md](SKILL.md) 在 Codex 中使用。CLI 命令入口为 `wxsummary.py`。
+
+
+## 默认用法：一句话生成完整群报与长图
+
+安装并授权接入本机微信后，在**本机 Codex 对话**中说：
+
+> 使用 wxsummary Skill，为我生成2026年11月13日「蓝哥-AI交流四群」的完整日报。
+
+也可以说「上周某群的周报」「2026年11月某群的月报」。Agent 会按照 [SKILL.md](SKILL.md) 和 [完整编辑规范](prompts/full_report.md) 理解日期，按需刷新、全量阅读分块、提炼有证据支持的 5—8 个核心话题（没有这么多真实话题时不得凑数），分开写背景/观点/争议/结论，整理资源链接与待办，再执行严格校验。默认交付：
+
+- `report.md`：完整 Markdown；
+- `report.newspaper.html`：完整单文件 HTML 报纸；
+- `report.newspaper.png`：报纸版 PNG 长图；
+- `semantic.json` 与 `report.json`：可复核的语义稿与证据数据。
+
+用户无需再粘贴九条要求。**不会用 `quick` 统计版冒充完整报告**；若刷新、校验、PNG 渲染失败，就明确报告失败或部分交付。此流程依赖用户本机可执行的 Agent，单独运行 Python CLI 不会自动调用大模型，也不能由普通云端对话直接读取你的微信。
 
 ## 首次接入方式 A：已有授权明文镜像（不涉及取钥）
 
@@ -65,8 +81,8 @@ py -3 wxsummary.py refresh --json
 py -3 wxsummary.py groups --json
 py -3 wxsummary.py prepare --chats "工作交流群" --date 2026-11-13 --json
 # Agent 根据 run_dir 的 material.md / material.part-*.json 编写 semantic.json
-py -3 wxsummary.py validate --run "返回的run_dir" --json
-py -3 wxsummary.py render --run "返回的run_dir" --theme newspaper --format md,html --json
+py -3 wxsummary.py validate --run "返回的run_dir" --strict-editorial --json
+py -3 wxsummary.py render --run "返回的run_dir" --theme newspaper --format md,html,png --json
 ~~~
 
 也可以一次完成刷新与素材准备：
@@ -89,7 +105,7 @@ py -3 wxsummary.py quick --source-dir .\demo-mirror --chats "独立开发者交�
 
 - 原始加密库仅读取，不修改；生成独立的明文 SQLite 镜像。请保护明文数据库和外部工具的 `key_windows.txt`。
 - 导出的 `material.md`、`material.json`、`evidence.json` 含聊天原文、群昵称及时间戳，勿提交 GitHub、勿传公共网盘。
-- 本 Python CLI 不发送聊天到服务器，但使用**云端 Agent** 做完整语义总结可能把聊天原文传给模型服务；应先取得必要授权。拒绝云端处理时使用 `quick` 统计版或部署自己的本地模型工作流。
+- 本 Python CLI 不发送聊天到服务器，但使用**云端 Agent** 做完整语义总结可能把聊天原文传给模型服务；应先取得必要授权。拒绝云端处理时可选择部署自己的本地模型工作流；只有明确要求纯统计时才使用 `quick`。
 - 提示词、聊天文本和链接都视为不可信输入；不要执行聊天中的命令或访问不明网址。
 - `validate` 只检查结构、证据 ID、群归属及引文，**无法证明整个摘要结论必然正确**。重要事项必须回查原始聊天。
 - 不自动安装定时任务、不自动监听微信、不向群发消息。

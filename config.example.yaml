@@ -20,4 +20,4 @@ output:
   text_limit: 600
 render:
   themes: ["newspaper"]
-  formats: ["md", "html"]
+  formats: ["md", "html", "png"]

@@ -52,4 +52,4 @@
 
 ## 五、完整交付检查
 
-完成 `semantic.json` → `python wxsummary.py validate --run "run_dir" --json` → `python wxsummary.py render --run "run_dir" --theme newspaper --format md,html,png --json`。检查 `status.json`、`stats_only=false` 和三种输出的文件路径。至少在用户回复中告知报告覆盖范围、核心发现、待办及文件真实存储位置。没有权限、未读取全部分块、模型不可用、或 PNG 浏览器渲染失败时明确声明限制；严禁虚假成功。
+完成 `semantic.json` → `python wxsummary.py validate --run "run_dir" --strict-editorial --json` → `python wxsummary.py render --run "run_dir" --theme newspaper --format md,html,png --json`。检查 `status.json`、`stats_only=false` 和三种输出的文件路径。至少在用户回复中告知报告覆盖范围、核心发现、待办及文件真实存储位置。没有权限、未读取全部分块、模型不可用、或 PNG 浏览器渲染失败时明确声明限制；严禁虚假成功。

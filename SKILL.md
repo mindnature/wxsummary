@@ -46,7 +46,7 @@ description: 微信群聊完整语义日报/周报/月报。用户只需指定�
    对手动镜像或 JSON 去掉 `--refresh`；周报/月报按上面日期规则替换 `--period` 和 `--date`。多群默认分群（`--mode separate`），除非用户要求合并。
 3. **完整阅读**：记下 `run_dir` 和每个 `reports[].dir`。读取 `material.json` 的统计、写作指导和所有消息；如果 `chunks.reading_order` 存在，逐个阅读所有 `material.part-N.json`，按块抽取事件及真实消息 ID，再跨块合并、去重、追踪最后结论。上下文容量无法覆盖所有分块时，必须明确报告限制，不能虚称全量已读。
 4. **生成真正的语义稿**：逐条执行 [prompts/full_report.md](prompts/full_report.md) 中的默认编辑标准，按 `material.guide.item_specs` 写 UTF-8 `semantic.json`。优先 5—8 条真实主线话题；每个议题说明背景、关键观点、分歧、当前结论、结论状态；重要资源注明实际价值；待办和个人提醒不凭空编造。统计不做报告主体。每个条目附真实 `evidence`，`quotes` 为连续原文。
-5. **校验**：`python wxsummary.py validate --run "run_dir" --json`。逐条修正错误（最多可迭代几轮），禁止伪造引语与证据 ID；确保 `report.json` 的 `stats_only` 为 `false`。校验未过，不得渲染伪完整报告。
+5. **校验**：`python wxsummary.py validate --run "run_dir" --strict-editorial --json`。逐条修正错误（最多可迭代几轮），禁止伪造引语与证据 ID；确保 `report.json` 的 `stats_only` 为 `false`。校验未过，不得渲染伪完整报告。
 6. **默认三格式**：`python wxsummary.py render --run "run_dir" --theme newspaper --format md,html,png --json`。核对输出文件实际存在；不能仅因 HTML/MD 成功就宣称 PNG 成功。无 Chrome/Edge 或长图失败时如实报告，并提供可用的其他格式。
 7. **交付**：给用户所选群、准确日报/周报/月报日期、读到的发言数、核心话题数、最值得注意的 2—4 个发现/待办及已生成文件路径。不得伪造 sandbox 链接，也不发送到微信聊天窗口。
 

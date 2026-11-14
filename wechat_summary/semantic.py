@@ -13,7 +13,8 @@ from typing import Any
 from . import __version__
 from .errors import EXIT_FAIL, EXIT_OK, WSError
 from .prepare import load_run
-from .schema import SEMANTIC_VERSION, STANCE_LABELS, STANCE_VALUES, TOP_FIELDS, schema_for_period
+from .schema import (CONCLUSION_STATUS_VALUES, SEMANTIC_VERSION, STANCE_LABELS,
+                     STANCE_VALUES, TOP_FIELDS, schema_for_period)
 
 REPORT_SCHEMA = 1
 
@@ -114,6 +115,8 @@ def validate_semantic(semantic: Any, material: dict[str, Any], evidence: dict[st
             elif multi and section in ("topics", "insights", "follow_ups", "for_me"):
                 warnings.append(f"{where} 未填写 chat_id，将按证据自动推断")
             # 字段级规则
+            if section == "topics" and item.get("conclusion_status") and item["conclusion_status"] not in CONCLUSION_STATUS_VALUES:
+                errors.append(f"{where}.conclusion_status 无效：{item['conclusion_status']}")
             if section == "insights" and item.get("stance") and item["stance"] not in STANCE_VALUES:
                 errors.append(f"{where}.stance 只能是 {', '.join(sorted(STANCE_VALUES))}")
             if section == "links" and item.get("url") and item["url"] not in link_urls:
@@ -229,7 +232,7 @@ def _load(report_dir: Path) -> tuple[dict[str, Any], dict[str, dict[str, Any]]]:
     return material, evidence
 
 
-def validate_run(run: str, semantic_path: str | None = None) -> tuple[dict[str, Any], int]:
+def validate_run(run: str, semantic_path: str | None = None, *, strict_editorial: bool = False) -> tuple[dict[str, Any], int]:
     run_dir, run_meta = load_run(run)
     dirs = _report_dirs(run_dir, run_meta)
     if semantic_path and len(dirs) > 1:
@@ -251,6 +254,17 @@ def validate_run(run: str, semantic_path: str | None = None) -> tuple[dict[str, 
             all_errors.append(f"{prefix}semantic.json 不是合法 JSON：{exc}")
             continue
         errors, warnings = validate_semantic(semantic, material, evidence)
+        if strict_editorial and isinstance(semantic, dict) and not material["stats"]["empty"]:
+            items = semantic.get("topics") or []
+            if isinstance(items, list):
+                for index, topic in enumerate(items):
+                    if not isinstance(topic, dict):
+                        continue
+                    for field in ("background", "key_views", "debate", "conclusion", "conclusion_status"):
+                        if not topic.get(field):
+                            errors.append(f"topics[{index}] 缺少深度编辑字段 {field}（--strict-editorial）")
+                    if topic.get("conclusion_status") in ("confirmed", "leaning") and not topic.get("conclusion"):
+                        errors.append(f"topics[{index}] 结论状态必须有具体结论")
         all_errors += [prefix + e for e in errors]
         all_warnings += [prefix + w for w in warnings]
         if not errors:
@@ -262,7 +276,7 @@ def validate_run(run: str, semantic_path: str | None = None) -> tuple[dict[str, 
         (report_dir / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=1), encoding="utf-8")
         written.append(str(report_dir / "report.json"))
     return {"ok": True, "reports": written, "warnings": all_warnings,
-            "next": f"python wechat_summary.py render --run \"{run_dir}\" --theme claude"}, EXIT_OK
+            "next": f"python wxsummary.py render --run \"{run_dir}\" --theme newspaper --format md,html,png"}, EXIT_OK
 
 
 def finalize_run(run: str, *, fallback_stats: bool) -> dict[str, Any]:

@@ -21,6 +21,11 @@ ITEM_SPECS: dict[str, dict[str, Any]] = {
         "fields": {
             "title": ("str", True, "结论式标题，12-28 字，说清发生了什么或得出了什么，不要写成『关于 X 的讨论』"),
             "summary": ("str", True, "2-4 句，像看完全程的群友在讲：谁提出、有什么分歧、最后落在哪"),
+            "background": ("str", False, "本轮讨论具体背景，1-2 句"),
+            "key_views": ("list[str]", False, "2-4 条重要观点，区分发言来源"),
+            "debate": ("str", False, "实际争议；无分歧时可写未见明显分歧"),
+            "conclusion": ("str", False, "当前结论；没有定论时明确说明"),
+            "conclusion_status": ("str", False, "confirmed/leaning/pending/discussion/individual"),
             "points": ("list[str]", False, "2-5 条要点，每条一句"),
             "quotes": ("list[quote]", False, "1-3 句关键原话，quote={msg_id, text}，text 必须是原文片段"),
             "people": ("list[str]", False, "主要参与者显示名"),
@@ -96,6 +101,9 @@ TOP_FIELDS: dict[str, tuple[str, bool, str]] = {
     "editor_note": ("str", False, "编者按，1-3 句，可写本期观察或数据局限"),
 }
 
+CONCLUSION_STATUS_VALUES = {"confirmed", "leaning", "pending", "discussion", "individual"}
+CONCLUSION_STATUS_LABELS = {"confirmed": "已确认", "leaning": "倾向方案", "pending": "待确认", "discussion": "仅讨论", "individual": "个别观点"}
+
 STANCE_VALUES = {"consensus", "debate", "insight", "warning"}
 STANCE_LABELS = {"consensus": "共识", "debate": "分歧", "insight": "洞见", "warning": "风险"}
 
@@ -119,6 +127,11 @@ def example_semantic(period: str, sample_ids: list[str], sample_url: str | None,
             {
                 "title": "结论式标题：谁做了什么 / 得出了什么",
                 "summary": "谁提出了什么，谁给了反例，最后落在哪。",
+                "background": "有群友提出了一个具体问题。",
+                "key_views": ["不同成员提出了不同实践路径"],
+                "debate": "尚需比较优缺点。",
+                "conclusion": "仍待进一步验证。",
+                "conclusion_status": "pending",
                 "points": ["要点一", "要点二"],
                 "quotes": [{"msg_id": ev[0], "text": "从该消息原文里逐字摘的一句"}],
                 "people": ["发言人A", "发言人B"],

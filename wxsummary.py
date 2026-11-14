@@ -20,7 +20,7 @@ from wechat_summary.semantic import validate_run
 from wechat_summary.sources import open_source
 from wechat_summary.themes import list_themes
 
-VERSION = "1.1.0"
+VERSION = "1.2.0"
 
 
 def _source_args(parser: argparse.ArgumentParser) -> None:
@@ -119,12 +119,13 @@ def build_parser() -> argparse.ArgumentParser:
     _common(p)
     p.add_argument("--run", required=True, help="prepare 的 run_dir")
     p.add_argument("--semantic", help="语义稿路径；默认在报告子目录 semantic.json")
+    p.add_argument("--strict-editorial", action="store_true", help="严格要求议题背景/观点/争议/结论/结论状态完整")
 
     p = sub.add_parser("render", help="把校验通过的报告渲染为 Markdown/HTML/PNG")
     _common(p)
     p.add_argument("--run", required=True)
     p.add_argument("--theme", default="newspaper")
-    p.add_argument("--format", default="md,html")
+    p.add_argument("--format", default="md,html,png")
     p.add_argument("--stats-only", action="store_true", help="无语义稿时渲染纯统计版")
 
     p = sub.add_parser("themes", help="查看本机可用主题")
@@ -188,7 +189,7 @@ def _run(args: argparse.Namespace) -> tuple[dict, int]:
                 "reports": result["reports"], "render": status,
                 "note": "统计版不包含 AI 语义分析；完整群报请用 Agent Skill。"}, code
     if command == "validate":
-        return validate_run(args.run, args.semantic)
+        return validate_run(args.run, args.semantic, strict_editorial=args.strict_editorial)
     if command == "render":
         return render_run(cfg, args.run, themes=_csv([args.theme]),
                           formats=_csv([args.format]), stats_only=args.stats_only)

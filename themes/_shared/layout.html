@@ -37,6 +37,14 @@
             {% if t.tags or multi %}<p class="topic-tags">{% if multi %}{% if t.chat_name %}<span class="chip chip-chat">{{ t.chat_name }}</span>{% endif %}{% endif %}{% for g in t.tags %}<span class="chip">{{ g }}</span>{% endfor %}</p>{% endif %}
             <h3 class="topic-title">{{ t.title }}</h3>
             <p class="topic-sum">{{ t.summary }}</p>
+            {% if t.background or t.key_views or t.debate or t.conclusion %}
+            <div class="topic-analysis">
+              {% if t.background %}<p class="analysis-row"><strong class="analysis-label">背景</strong><span>{{ t.background }}</span></p>{% endif %}
+              {% if t.key_views %}<div class="analysis-row"><strong class="analysis-label">关键观点</strong><ul class="analysis-views">{% for view in t.key_views %}<li>{{ view }}</li>{% endfor %}</ul></div>{% endif %}
+              {% if t.debate %}<p class="analysis-row"><strong class="analysis-label">主要争议</strong><span>{{ t.debate }}</span></p>{% endif %}
+              {% if t.conclusion %}<p class="analysis-row analysis-conclusion"><strong class="analysis-label">当前结论</strong><span>{% if t.conclusion_status_label %}<em class="conclusion-state">{{ t.conclusion_status_label }}</em>{% endif %}{{ t.conclusion }}</span></p>{% endif %}
+            </div>
+            {% endif %}
             {% if t.points %}<ul class="points">{% for p in t.points %}<li>{{ p }}</li>{% endfor %}</ul>{% endif %}
             {% if t.quotes %}<div class="quotes">{% for q in t.quotes %}<blockquote class="quote"><p>{{ q.text }}</p><cite>{{ q.sender }}</cite></blockquote>{% endfor %}</div>{% endif %}
             <div class="topic-ft">{% if t.people %}<p class="people"><span class="people-hd">参与</span>{{ t.people | join }}</p>{% endif %}{% include "evidence.html" with t %}</div>

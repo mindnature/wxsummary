@@ -92,3 +92,9 @@ body{background:#f2ede1;color:#1b1a17;font-family:"Noto Serif SC","Source Han Se
 .foot{border-top:4px double #1b1a17;padding-top:10px;color:#4a463d;text-align:center}
 @media (min-width:640px){.kpi:nth-child(4n){border-right:0}.kpi{border-bottom:0}}
 @media (max-width:639px){.kpi:nth-child(2n){border-right:0}.kpi:nth-child(n+3){border-bottom:0}}
+
+/* Newspaper editorial emphasis: conclusions stand out without duplicating long quotes. */
+.topic-analysis{border-left:2px solid #aaa397;padding:9px 0 7px 12px;background:rgba(255,255,255,.12)}
+.analysis-label{color:#514a40;letter-spacing:.04em}
+.analysis-conclusion{border-top:1px dotted #aaa397;padding-top:6px;font-weight:700}
+.conclusion-state{color:#8b2922}

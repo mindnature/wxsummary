@@ -69,7 +69,10 @@ def _writing_guide(window: Window, multi: bool, me_configured: bool, chunked: bo
     if window.period in ("weekly", "monthly", "custom"):
         steps.append("先按天写 daily（每天一条 headline + 1-4 个要点，无消息的日子跳过），再从整期视角归纳 topics，不要把每日要点简单拼接成话题。")
     steps += [
-        "topics 写结论而不是目录：标题说清『发生了什么/得出了什么』，summary 交代谁提出、谁反对、最后落在哪。",
+        "默认写完整语义群报（不是纯统计版）；在证据充分时选择 5-8 个重要真实话题，不足时如实少写，绝不凑数。",
+        "每条 topics 都写 background/key_views/debate/conclusion/conclusion_status，另用 summary 简述讨论发展过程。",
+        "topics 标题写结论而不是目录；区分确认、倾向、待核实、仅讨论及个人观点。",
+        "重要结论、待办和链接必须有当期真实消息证据，内容不能超出证据支持的范围。",
         "同一件事的多轮讨论、改口、补充要合并成一个话题，并以最后结论为准。",
         "insights 只写有证据的判断；分歧要同时写出双方理由，stance 取 consensus/debate/insight/warning。",
         "follow_ups 只写聊天里真实出现的待办、约定、截止时间，不要替人发明任务。",
@@ -85,6 +88,10 @@ def _writing_guide(window: Window, multi: bool, me_configured: bool, chunked: bo
         steps.append("未配置“我的身份”，for_me 必须为空数组。")
     return {
         "output_file": "semantic.json（与 material.json 同目录）",
+        "default_profile": "editorial_full",
+        "topic_target": {"min": 5, "max": 8, "rule": "材料支持时争取 5-8 条，证据不足不得凑数"},
+        "default_outputs": ["report.md", "report.newspaper.html", "report.newspaper.png"],
+        "editorial_spec": "prompts/full_report.md",
         "steps": steps,
         "evidence_rule": "每条 topics/insights/follow_ups/for_me/links/daily 都必须有 evidence 数组，至少 1 个 msg_id，且只能使用本素材中出现的 id。",
         "stance_values": sorted(STANCE_VALUES),
@@ -336,7 +343,7 @@ def prepare(
     }
     (run_dir / "run.json").write_text(json.dumps(run_meta, ensure_ascii=False, indent=1), encoding="utf-8")
     return {"ok": True, "run_dir": str(run_dir), "window": window.to_dict(), "mode": run_meta["mode"], "reports": reports,
-            "next": f"阅读各报告目录下的 material.md，写 semantic.json 后运行：python wechat_summary.py validate --run \"{run_dir}\""}
+            "next": f"读取所有素材与分块，按 prompts/full_report.md 写 semantic.json；执行 python wxsummary.py validate --run \"{run_dir}\" --strict-editorial，再用 newspaper 输出 md,html,png"}
 
 
 def load_run(run: str) -> tuple[Path, dict[str, Any]]:

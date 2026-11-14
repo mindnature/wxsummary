@@ -15,6 +15,7 @@ from .charts import ascii_bars, build_charts
 from .errors import EXIT_FAIL, EXIT_OK, EXIT_PARTIAL, WSError
 from .models import TYPE_LABELS
 from .prepare import load_run
+from .schema import CONCLUSION_STATUS_LABELS
 from .templating import Loader, TemplateError
 from .themes import SHARED_DIR, get_theme, resolve_theme_names
 
@@ -117,6 +118,8 @@ def build_view(report: dict[str, Any], theme: dict[str, Any] | None = None) -> d
         filled = int(round(20 * d["messages"] / max_day))
         daily_rows.append({**d, "bar_pct": round(100 * d["messages"] / max_day), "note": sem_daily.get(d["date"]),
                            "ascii": "█" * filled + "░" * (20 - filled)})
+    topics = [{**topic, "conclusion_status_label": CONCLUSION_STATUS_LABELS.get(topic.get("conclusion_status"), "")}
+              for topic in sem.get("topics", [])]
     view = {
         "generator": f"wxsummary {__version__}",
         "title": sem.get("title") or meta["title"],
@@ -134,9 +137,9 @@ def build_view(report: dict[str, Any], theme: dict[str, Any] | None = None) -> d
         "one_liner": sem.get("one_liner", ""),
         "mood": sem.get("mood", ""),
         "editor_note": sem.get("editor_note", ""),
-        "topics": sem.get("topics", []),
-        "lead": (sem.get("topics") or [None])[0],
-        "rest_topics": (sem.get("topics") or [])[1:],
+        "topics": topics,
+        "lead": (topics or [None])[0],
+        "rest_topics": topics[1:],
         "insights": sem.get("insights", []),
         "follow_ups": sem.get("follow_ups", []),
         "for_me": sem.get("for_me", []),
@@ -193,6 +196,17 @@ def render_markdown(report: dict[str, Any]) -> str:
         for i, t in enumerate(v["topics"], 1):
             chat = f"〔{_md_escape(t['chat_name'])}〕" if v["multi"] and t.get("chat_name") else ""
             out += [f"### {i}. {chat}{_md_escape(t['title'])}", "", _md_escape(t.get("summary", "")), ""]
+            if t.get("background"):
+                out += [f"**背景：** {_md_escape(t['background'])}", ""]
+            if t.get("key_views"):
+                out += ["**关键观点：**", ""]
+                out.extend(f"- {_md_escape(view)}" for view in t["key_views"])
+                out.append("")
+            if t.get("debate"):
+                out += [f"**主要争议：** {_md_escape(t['debate'])}", ""]
+            if t.get("conclusion"):
+                state = f"【{t['conclusion_status_label']}】" if t.get("conclusion_status_label") else ""
+                out += [f"**当前结论：** {state}{_md_escape(t['conclusion'])}", ""]
             for p in t.get("points") or []:
                 out.append(f"- {_md_escape(p)}")
             for q in t.get("quotes") or []:
@@ -320,7 +334,10 @@ def render_png(html_path: Path, png_path: Path, width: int = 480) -> tuple[bool,
                                   capture_output=True, timeout=90)
             m = re.search(rb'data-ws-height="(\d+)"', dump.stdout or b"")
             if m:
-                height = min(30000, max(800, int(m.group(1)) + 8))
+                full_height = int(m.group(1)) + 8
+                if full_height > 30000:
+                    return False, f"HTML 高度 {full_height}px 超过单张长图 30000px 上限；已保留完整 HTML，不能输出被截断的 PNG"
+                height = max(800, full_height)
             proc = subprocess.run(base + [f"--window-size={width},{height}", "--virtual-time-budget=2000",
                                           f"--screenshot={shot}", url],
                                   capture_output=True, timeout=120)
@@ -338,7 +355,7 @@ def render_run(config: dict[str, Any], run: str, *, themes: list[str], formats: 
     run_dir, run_meta = load_run(run)
     render_cfg = config.get("render") or {}
     theme_names = resolve_theme_names(themes, render_cfg.get("themes") or ["newspaper"])
-    fmts = [f.lower() for f in (formats or render_cfg.get("formats") or ["md", "html"])]
+    fmts = [f.lower() for f in (formats or render_cfg.get("formats") or ["md", "html", "png"])]
     unknown = [f for f in fmts if f not in ("md", "html", "png")]
     if unknown:
         raise WSError("render_failed", f"不支持的格式：{', '.join(unknown)}（可选 md, html, png）")
@@ -360,6 +377,8 @@ def render_run(config: dict[str, Any], run: str, *, themes: list[str], formats: 
         if not report_path.exists():
             raise WSError("report_missing", f"缺少 {report_path}")
         report = json.loads(report_path.read_text(encoding="utf-8"))
+        if report.get("stats_only") and not stats_only:
+            raise WSError("semantic_missing", "当前 report.json 是纯统计版，拒绝冒充完整语义报告；请先生成 semantic.json 并运行 validate")
         entry: dict[str, Any] = {"key": r["key"], "title": report["meta"]["title"], "outputs": {}}
         if "md" in fmts:
             md_path = report_dir / "report.md"
@@ -391,7 +410,7 @@ def render_run(config: dict[str, Any], run: str, *, themes: list[str], formats: 
         files.append(str(index_path))
 
     status: dict[str, Any] = {
-        "ok": True,
+        "ok": not partial,
         "status": "partial" if partial else "complete",
         "generator": f"wxsummary {__version__}",
         "rendered_at": datetime.now().astimezone().isoformat(timespec="seconds"),

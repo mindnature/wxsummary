@@ -34,7 +34,7 @@ DEFAULTS: dict[str, Any] = {
         "chunk_messages": 1500,
         "text_limit": 600,
     },
-"render": {"themes": ["newspaper"], "formats": ["md", "html"]},
+"render": {"themes": ["newspaper"], "formats": ["md", "html", "png"]},
 }
 
 ENV_OVERRIDES = {

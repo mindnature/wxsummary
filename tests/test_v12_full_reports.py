@@ -94,7 +94,7 @@ class FullReportTests(unittest.TestCase):
             with patch("wechat_summary.render.subprocess.run", return_value=proc) as run:
                 ok, detail = render_png(source, self.root / "long.png")
         self.assertFalse(ok)
-        self.assertIn("39000", detail)
+        self.assertIn("39008", detail)
         self.assertEqual(run.call_count, 1)
         self.assertFalse((self.root / "long.png").exists())
 
